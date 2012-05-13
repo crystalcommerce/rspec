@@ -37,6 +37,7 @@ module Spec
     private
 
       def method_missing(sym, *args, &block)
+        raise NoMethodError if sym == :to_ary
         __mock_proxy.record_message_received(sym, args, block)
         begin
           return self if __mock_proxy.null_object?
